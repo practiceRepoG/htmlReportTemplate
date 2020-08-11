@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <style>
+            .navUI {
+                list-style-type: none;
+                margin: 0;
+                padding : 0;
+                overflow: hidden;
+            }
+
+            .navLi{
+                float : left;
+                width : 50%;
+            }
+
+            .navLi button {
+                display: block;
+                color : white;
+                text-align: center;
+                padding : 14px 16px;
+                text-decoration: none;
+                background-color: #0f4194;
+                width: 758px;
+                height: 67px;
+            }
+
+            .navLi button:hover {
+                background-color: #33CEFF;
+            }
+
+            .vertical-menu {
+                width: 300px;
+                height: 639px;
+                overflow-y: auto;
+            }
+
+            .vertical-menu button {
+                background-color: #eee;
+                color: black;
+                display: block;
+                padding: 8px;
+                text-decoration: none;
+                width: 282px;
+                height: 80px;
+            }
+
+            .vertical-menu button:hover {
+                background-color: #ccc;
+            }
+
+            .vertical-menu button.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .content {
+                border-style: solid;
+                width: 1182px;
+                height: 639px;
+            }
+
+            .navDiv {
+                width: 100%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="navDiv" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <ul class="navUI">
+                    <li class="navLi"> <button onclick="displaySummary()"> Report page one</button></li>
+                    <li class="navLi"> <button onclick="displayDetail()">Report page two</button></li>
+                </ul>
+            </div>
+            <div>
+            <div id="reportDiv">
+                <h4 align = "center"> <u> Report Heading</u></h4>
+                <hr>
+                <h5> <u> Heading1:-</u></h5>
+                <ul>
+                    <li> Detail1: Detail1Val</li>
+                    <li> Detail2: Detail1Va2</li>
+                    <li> Detail3: DetailVal3</li>
+                </ul>
+                <hr>
+                <h5> <u> Heading2:-</u></h5>
+                <ul>
+                    <li> Detail1: Detail1Val</li>
+                    <li> Detail2: Detail1Va2</li>
+                    <li> Detail3: DetailVal3</li>
+                </ul>
+                <hr>
+                <table>
+                    <tr>
+                        <th>
+                            <div id="piechart" align="left"></div>
+                        </th>
+                        <th>
+                            <div id="container" align="right"></div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div id="detailDiv" style="display:none;">
+                <div>
+                    <table>
+                        <tr>
+                            <th>
+                                <div class="vertical-menu">
+                                    <button> <h5>Heading1</h5>Detail:1 Descrip:1</button>
+                                    <button> <h5>Heading2</h5>Detail:2 Descrip:2</button>
+                                    <button> <h5>Heading3</h5>Detail:3 Descrip:3</button>
+                                    <button> <h5>Heading4</h5>Detail:4 Descrip:4</button>
+                                    <button> <h5>Heading5</h5>Detail:5 Descrip:5</button>
+                                    <button> <h5>Heading6</h5>Detail:6 Descrip:6</button>
+                                    <button> <h5>Heading7</h5>Detail:7 Descrip:7</button>
+                                    <button> <h5>Heading8</h5>Detail:8 Descrip:8</button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="content">
+                                    Hello
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawrChart);
+
+            function drawrChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Test Execution'],
+                    ['Pass', 2],
+                    ['Fail', 3]
+                ]);
+            var options = {'width':550, 'height':250};
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options)
+            }
+
+            function displayDetail() {
+                document.getElementById("reportDiv").style.display = "none";
+                document.getElementById("detailDiv").style.display = "block";
+            }
+
+            function drawBarChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ["Element", "Density", {role: "style"}],
+                    ["Case1", 5, "#b87333"],
+                    ["Case2", 8, "silver"],
+                    ["Case3", 4, "gold"],
+                    ["Case4", 10, "color:#e5e4e2"]
+                ]);
+                var view = new google.visualization.DataView(data);
+                view.setColumns ([0, 1, { calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"}, 2]);
+
+                var options = {
+                        title: "Add title to this chart",
+                        width: 500,
+                        height: 150,
+                        bar: {groupWidth: "80%"},
+                        legend: {position: "none"}
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById("container"));
+                chart.draw(view, options);
+            }
+
+            google.charts.load('current', {'packages' : ['corechart']});
+            google.charts.setOnLoadCallback(drawBarChart);
+
+            function displaySummary() {
+                document.getElementById("reportDiv").style.display = "block";
+                document.getElementById("detailDiv").style.display = "none";
+            }
+        </script>
+    </body>
+</html>
